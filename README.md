@@ -5,76 +5,92 @@ Sistema web para gestionar proyectos estudiantiles interdisciplinarios. Permite 
 
 ---
 
-## Tecnologías Utilizadas
-------------------------
-| Capa | Tecnología 
-|-----------------------
-| Lenguaje | Java 24 
-| Servidor | Apache Tomcat 11.0.18 
-| Persistencia | JPA con Hibernate 6.4.4 
-| API REST | Jersey (JAX-RS) 3.1.5 
-| Base de datos | MariaDB 10.4.32 (XAMPP) 
-| Serialización | Jackson 2.17.0 
-| Frontend | HTML5 + CSS3 + JavaScript puro (Fetch API) 
-| Build | Maven 
-| IDE | Apache NetBeans 24 
-------------------------------
+##  Tecnologías Utilizadas
+
+| Capa | Tecnología |
+|---|---|
+| Lenguaje | Java 24 |
+| Servidor | Apache Tomcat 11.0.18 |
+| Persistencia | JPA con Hibernate 6.4.4 |
+| API REST | Jersey (JAX-RS) 3.1.5 |
+| Base de datos | MariaDB 10.4.32 (XAMPP) |
+| Serialización | Jackson 2.17.0 |
+| Frontend | HTML5 + CSS3 + JavaScript puro (Fetch API) |
+| Build | Maven |
+| IDE | Apache NetBeans 24 |
+
+---
 
 
-##  Estructura del Proyecto
+## Estructura del Proyecto
 
-GestionProyectosEstudiantiles/
-│
-├── Web Pages/                              # Archivos del frontend
-│   ├── META-INF/                           # Metadatos del contexto web
-│   ├── WEB-INF/                            # Configuración interna (web.xml, beans.xml)
-│   ├── app.js                              # Lógica JavaScript - consume la API REST con fetch()
-│   ├── index.html                          # Página principal del sistema
-│   └── style.css                           # Estilos CSS de la interfaz
-│
-├── Source Packages/
-│   └── com.unipanamericana.gestionproyectosestudiantiles/
-│       │
-│       ├── JakartaRestConfiguration.java   # Define el @ApplicationPath("/api") de JAX-RS
-│       │
-│       ├── config/
-│       │   ├── AplicationConfig.java       # Registra los recursos REST de la aplicación
-│       │   └── ObjectMapperProvider.java   # Configura Jackson para serializar fechas (LocalDate)
-│       │
-│       ├── model/                          # Entidades JPA mapeadas a tablas de la BD
-│       │   ├── Actividad.java              # Tabla: actividades — tareas dentro de un proyecto
-│       │   ├── Docente.java                # Tabla: docentes — docente que orienta el proyecto
-│       │   ├── Entregable.java             # Tabla: entregables — archivos entregados por estudiantes
-│       │   ├── Estudiante.java             # Tabla: estudiantes — estudiantes participantes
-│       │   └── Proyecto.java              # Tabla: proyectos — proyectos interdisciplinarios
-│       │
-│       ├── resources/                      # Controladores REST (Capa Resource)
-│       │   ├── ActividadResources.java     # Endpoints CRUD para /api/actividades
-│       │   ├── DocenteResources.java       # Endpoints CRUD para /api/docentes
-│       │   ├── EntregableResources.java    # Endpoints CRUD para /api/entregables
-│       │   ├── EstudianteResources.java    # Endpoints CRUD para /api/estudiantes
-│       │   └── ProyectoResources.java      # Endpoints CRUD para /api/proyectos
-│       │
-│       └── service/                        # Capa de lógica de negocio (Service)
-│           ├── JPAUtil.java                # Crea y gestiona el EntityManagerFactory
-│           ├── ActividadService.java       # Lógica: crear, listar, actualizar, eliminar actividades
-│           ├── DocenteService.java         # Lógica: crear, listar, actualizar, eliminar docentes
-│           ├── EntregableService.java      # Lógica: crear, listar, actualizar, eliminar entregables
-│           ├── EstudianteService.java      # Lógica: crear, listar, actualizar, eliminar estudiantes
-│           └── ProyectoService.java        # Lógica: crear, listar, actualizar, eliminar proyectos
-│
-├── Other Sources/
-│   └── src/main/resources/META-INF/
-│       └── persistence.xml                 # Configuración JPA: conexión a BD, Hibernate dialect
-│
-├── Dependencies/                           # Librerías Maven (Jersey, Hibernate, MySQL, Jackson)
-├── Runtime Dependencies/
-├── Java Dependencies/
-│   └── JDK 21 (Default)
-│
-└── Project Files/
-    ├── pom.xml                             # Dependencias y configuración del proyecto Maven
-    └── nb-configuration.xml               # Configuración específica de NetBeans
+###  Web Pages — Frontend
+| Archivo | Descripción |
+|---|---|
+| `index.html` | Página principal del sistema |
+| `app.js` | Lógica JavaScript — consume la API REST con fetch() |
+| `style.css` | Estilos CSS de la interfaz |
+| `META-INF/` | Metadatos del contexto web |
+| `WEB-INF/` | Configuración interna (web.xml, beans.xml) |
+
+---
+
+###  Source Packages — Backend Java
+
+#### Paquete raíz
+| Archivo | Descripción |
+|---|---|
+| `JakartaRestConfiguration.java` | Define el `@ApplicationPath("/api")` de JAX-RS |
+
+#### `config/` — Configuración
+| Archivo | Descripción |
+|---|---|
+| `AplicationConfig.java` | Registra los recursos REST de la aplicación |
+| `ObjectMapperProvider.java` | Configura Jackson para serializar fechas (LocalDate) |
+
+#### `model/` — Entidades JPA (mapeadas a tablas de la BD)
+| Archivo | Tabla | Descripción |
+|---|---|---|
+| `Actividad.java` | `actividades` | Tareas dentro de un proyecto |
+| `Docente.java` | `docentes` | Docente que orienta el proyecto |
+| `Entregable.java` | `entregables` | Archivos entregados por estudiantes |
+| `Estudiante.java` | `estudiantes` | Estudiantes participantes |
+| `Proyecto.java` | `proyectos` | Proyectos interdisciplinarios |
+
+#### `resources/` — Controladores REST
+| Archivo | Endpoint |
+|---|---|
+| `ActividadResources.java` | `/api/actividades` |
+| `DocenteResources.java` | `/api/docentes` |
+| `EntregableResources.java` | `/api/entregables` |
+| `EstudianteResources.java` | `/api/estudiantes` |
+| `ProyectoResources.java` | `/api/proyectos` |
+
+#### `service/` — Lógica de Negocio
+| Archivo | Descripción |
+|---|---|
+| `JPAUtil.java` | Crea y gestiona el EntityManagerFactory |
+| `ActividadService.java` | Crear, listar, actualizar y eliminar actividades |
+| `DocenteService.java` | Crear, listar, actualizar y eliminar docentes |
+| `EntregableService.java` | Crear, listar, actualizar y eliminar entregables |
+| `EstudianteService.java` | Crear, listar, actualizar y eliminar estudiantes |
+| `ProyectoService.java` | Crear, listar, actualizar y eliminar proyectos |
+
+---
+
+### Other Sources — Configuración
+| Archivo | Descripción |
+|---|---|
+| `META-INF/persistence.xml` | Configuración JPA: conexión a BD y Hibernate dialect |
+
+---
+
+###  Project Files
+| Archivo | Descripción |
+|---|---|
+| `pom.xml` | Dependencias y configuración del proyecto Maven |
+| `nb-configuration.xml` | Configuración específica de NetBeans |
+
 ---
 
 ## 🗄️ Base de Datos
