@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Proyectos Estudiantiles</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1> Sistema de Gestión de Proyectos Estudiantiles — Fundación Universitaria Compensar</h1>
+</header>
+
+<nav>
+    <button class="active" data-seccion="docentes" onclick="mostrarSeccion('docentes')">Docentes</button>
+    <button data-seccion="estudiantes" onclick="mostrarSeccion('estudiantes')">Estudiantes</button>
+    <button data-seccion="proyectos" onclick="mostrarSeccion('proyectos')">Proyectos</button>
+    <button data-seccion="actividades" onclick="mostrarSeccion('actividades')">Actividades</button>
+    <button data-seccion="entregables" onclick="mostrarSeccion('entregables')">Entregables</button>
+</nav>
+
+<div class="container">
+
+    <!-- DOCENTES -->
+    <div id="sec-docentes" class="section active">
+        <div class="card">
+            <h2>Registrar Docente</h2>
+            <div id="msg-docente" class="msg"></div>
+            <div class="form-grid">
+                <div><label>Nombre</label><input id="doc-nombre" placeholder="Nombre completo"></div>
+                <div><label>Correo</label><input id="doc-correo" type="email" placeholder="correo@ejemplo.com"></div>
+                <div><label>Área</label><input id="doc-area" placeholder="Ej: Ingeniería"></div>
+            </div>
+            <button class="btn btn-primary" onclick="crearDocente()">Guardar Docente</button>
+        </div>
+        <div class="card">
+            <h2>Lista de Docentes</h2>
+            <table>
+                <thead><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Área</th><th>Acciones</th></tr></thead>
+                <tbody id="tabla-docentes"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ESTUDIANTES -->
+    <div id="sec-estudiantes" class="section">
+        <div class="card">
+            <h2>Registrar Estudiante</h2>
+            <div id="msg-estudiante" class="msg"></div>
+            <div class="form-grid">
+                <div><label>Nombre</label><input id="est-nombre" placeholder="Nombre completo"></div>
+                <div><label>Correo</label><input id="est-correo" type="email" placeholder="correo@ejemplo.com"></div>
+                <div><label>Programa Académico</label><input id="est-programa" placeholder="Ej: Ingeniería de Sistemas"></div>
+            </div>
+            <button class="btn btn-primary" onclick="crearEstudiante()">Guardar Estudiante</button>
+        </div>
+        <div class="card">
+            <h2>Lista de Estudiantes</h2>
+            <table>
+                <thead><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Programa</th><th>Acciones</th></tr></thead>
+                <tbody id="tabla-estudiantes"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- PROYECTOS -->
+    <div id="sec-proyectos" class="section">
+        <div class="card">
+            <h2>Registrar Proyecto</h2>
+            <div id="msg-proyecto" class="msg"></div>
+            <div class="form-grid">
+                <div><label>Nombre</label><input id="proy-nombre" placeholder="Nombre del proyecto"></div>
+                <div><label>Descripción</label><input id="proy-desc" placeholder="Descripción"></div>
+                <div><label>Fecha Inicio</label><input id="proy-inicio" type="date"></div>
+                <div><label>Fecha Fin</label><input id="proy-fin" type="date"></div>
+                <div><label>Docente</label>
+                    <select id="proy-docente"><option value="">Seleccione docente...</option></select>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="crearProyecto()">Guardar Proyecto</button>
+        </div>
+        <div class="card">
+            <h2>Lista de Proyectos</h2>
+            <table>
+                <thead><tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Inicio</th><th>Fin</th><th>Docente</th><th>Acciones</th></tr></thead>
+                <tbody id="tabla-proyectos"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ACTIVIDADES -->
+    <div id="sec-actividades" class="section">
+        <div class="card">
+            <h2>Registrar Actividad</h2>
+            <div id="msg-actividad" class="msg"></div>
+            <div class="form-grid">
+                <div><label>Nombre</label><input id="act-nombre" placeholder="Nombre de la actividad"></div>
+                <div><label>Descripción</label><input id="act-desc" placeholder="Descripción"></div>
+                <div><label>Fecha Entrega</label><input id="act-fecha" type="date"></div>
+                <div><label>Proyecto</label>
+                    <select id="act-proyecto"><option value="">Seleccione proyecto...</option></select>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="crearActividad()">Guardar Actividad</button>
+        </div>
+        <div class="card">
+            <h2>Lista de Actividades</h2>
+            <table>
+                <thead><tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Fecha Entrega</th><th>Proyecto</th><th>Acciones</th></tr></thead>
+                <tbody id="tabla-actividades"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ENTREGABLES -->
+    <div id="sec-entregables" class="section">
+        <div class="card">
+            <h2>Registrar Entregable</h2>
+            <div id="msg-entregable" class="msg"></div>
+            <div class="form-grid">
+                <div><label>Actividad</label>
+                    <select id="ent-actividad"><option value="">Seleccione actividad...</option></select>
+                </div>
+                <div><label>Estudiante</label>
+                    <select id="ent-estudiante"><option value="">Seleccione estudiante...</option></select>
+                </div>
+                <div><label>Estado</label>
+                    <select id="ent-estado">
+                        <option value="pendiente">Pendiente</option>
+                        <option value="en_progreso">En Progreso</option>
+                        <option value="entregado">Entregado</option>
+                    </select>
+                </div>
+                <div><label>Fecha Subida</label><input id="ent-fecha" type="date"></div>
+            </div>
+            <button class="btn btn-primary" onclick="crearEntregable()">Guardar Entregable</button>
+        </div>
+        <div class="card">
+            <h2>Lista de Entregables</h2>
+            <table>
+                <thead><tr><th>ID</th><th>Actividad</th><th>Estudiante</th><th>Estado</th><th>Fecha Subida</th><th>Acciones</th></tr></thead>
+                <tbody id="tabla-entregables"></tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
