@@ -151,7 +151,7 @@ CREATE TABLE actividades (
 
 CREATE TABLE entregables (
     id_entregable INT AUTO_INCREMENT PRIMARY KEY,
-    estado ENUM('pendiente','en progreso','entregado') NOT NULL DEFAULT 'pendiente',
+    estado ENUM('pendiente','en_progreso','entregado') NOT NULL DEFAULT 'pendiente',
     fecha_subida DATE,
     id_actividad INT NOT NULL,
     id_estudiante INT NOT NULL,
